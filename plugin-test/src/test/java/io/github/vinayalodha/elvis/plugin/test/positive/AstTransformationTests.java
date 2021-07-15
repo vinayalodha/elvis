@@ -78,11 +78,12 @@ public class AstTransformationTests {
     @Test
     public void method_invocation_on_constructor() {
         @NullSafe
-        String vinay = new String("Hello").toLowerCase();
+        String vinay = "Hello".toLowerCase();
         assertEquals("hello", vinay);
     }
 
     public static class InnerClass {
         public String notNullField = "";
     }
+
 }

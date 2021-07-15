@@ -68,4 +68,13 @@ public class TreeTypeUtils {
     public static boolean isNullLiteral(JCTree.JCLiteral tree) {
         return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.NULL_LITERAL;
     }
+
+    public static boolean isParenthesis(JCTree treeTemp) {
+        return isTreeNotNull(treeTemp) && treeTemp.getKind() == Tree.Kind.PARENTHESIZED;
+    }
+
+
+    public static boolean isCast(JCTree treeTemp) {
+        return isTreeNotNull(treeTemp) && treeTemp.getKind() == Tree.Kind.TYPE_CAST;
+    }
 }

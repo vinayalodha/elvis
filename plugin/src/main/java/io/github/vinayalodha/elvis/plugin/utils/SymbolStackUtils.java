@@ -19,6 +19,11 @@ public final class SymbolStackUtils {
         while (true) {
             if (treeTemp == null) {
                 break;
+            } else if (TreeTypeUtils.isParenthesis(treeTemp)) {
+                treeTemp = ((JCTree.JCParens) treeTemp).getExpression();
+            } else if (TreeTypeUtils.isCast(treeTemp)) {
+                // TODO support cast
+                return null;
             } else if (TreeTypeUtils.isConstructor(treeTemp)
                     || TreeTypeUtils.isLiteralTree(treeTemp)
                     || TreeTypeUtils.isFieldAccessTreeOnThis(treeTemp)
@@ -36,7 +41,6 @@ public final class SymbolStackUtils {
                 symbolStack.push(treeTemp);
                 treeTemp = TreeUtils.parentForFieldAccess((JCTree.JCFieldAccess) treeTemp);
             } else if (TreeTypeUtils.isIdentifierTree(treeTemp)) {
-                // TODO bug
                 symbolStack.push(treeTemp);
                 break;
             } else {
@@ -65,8 +69,6 @@ public final class SymbolStackUtils {
                 JCTree.JCMethodInvocation mapMethod = treeMakerExtension.buildMapStatement(first, (JCTree.JCFieldAccess) second);
                 symbolStack.push(mapMethod);
             }
-
-            // TODO casting symbol
         }
         return (JCTree.JCMethodInvocation) symbolStack.pop();
     }

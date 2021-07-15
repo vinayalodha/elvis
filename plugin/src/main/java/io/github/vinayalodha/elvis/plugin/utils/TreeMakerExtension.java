@@ -85,7 +85,6 @@ public class TreeMakerExtension {
     }
 
     public JCTree.JCMethodInvocation buildOptionalStatement(JCTree.JCExpression optionalArgument) {
-        // cast check TODO
         Name ofNullableName = buildName("ofNullable");
         JCTree.JCExpression optionalExpression = buildFullyQualifiedClassNameExpression("java.util.Optional");
         JCTree.JCFieldAccess ofNullableFieldAccess = treeMaker.Select(optionalExpression, ofNullableName);

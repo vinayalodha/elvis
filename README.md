@@ -1,6 +1,4 @@
-# Elvis Operator for Java (sort of
-
-)
+# Elvis Operator for Java (sort of)
 
 One way of writing null safe code in Java is using `Optional.ofNullable`, Even though I feel it is better alternative to
 writing `if` it gets repetitive and verbose.
@@ -131,7 +129,7 @@ can not be written as
 
     public String getCardNumberFromOrder(Order order) {
         @NullSafe
-        return order.getPayment().getCard().getCardNumber();
+        return order.getPayment().getCard().getCardNumber(); // In Java you cant have annotation on return statement
     }
 
 ### If you have classname in expression then you will get compilation error
@@ -146,5 +144,26 @@ For example, below code will give compilation error, given it contain classname(
 
 Above code will throw compilation error saying `Unable to find Symbol StringUtils`
 
-Feel free to give it a try and share your thoughts!
+### If expression have Checked exception it will give compilation error
+
+Consider example
+
+    public String getSomeStuff(SomeClass object) {
+        @NullSafe
+        String obj = object.thisMethodWillThrowIoException();
+        return obj;
+    }
+
+Here after AST manipulation by this plugin code will become
+
+    public String getSomeStuff(SomeClass object) {
+        String obj = Optional.ofNullable(object)
+                        .map(it->it.thisMethodWillThrowIoException()) // In Java you cant have checked exception in lambda
+                        .orElse(null);
+        return obj;
+    }
+
+Given Java Stream wont allow checked exception in lambda, you will get compilation error saying
+
+    java: unreported exception java.io.IOException; must be caught or declared to be thrown
 

@@ -20,6 +20,8 @@ public class PrimitiveTypesTests {
         byte byteField = 0;
         char charField = '\u0000';
         long longField = 0;
+        float floatField;
+        double doubleField;
     }
 
     public static class NonPrimitiveDataProvider {
@@ -28,7 +30,103 @@ public class PrimitiveTypesTests {
         Byte byteField;
         Character charField;
         Long longField;
+        Float floatField;
+        Double doubleField;
     }
+
+
+    @Nested
+    public class DoubleTest {
+        @Test
+        public void primitive_type_default_value_int_1() {
+            @NullSafe("")
+            double vinay = getNull(Double.class);
+            Assertions.assertEquals(0d, vinay);
+        }
+
+
+        @Test
+        public void primitive_type_default_value_int_2() {
+            @NullSafe
+            double vinay = PRIMITIVE_DATA_PROVIDER.doubleField;
+            Assertions.assertEquals(0, vinay);
+        }
+
+        @Test
+        public void non_primitive_type_default_value_1() {
+            @NullSafe("")
+            var vinay = getNull(Double.class);
+            Assertions.assertEquals(null, vinay);
+        }
+
+        @Test
+        public void non_primitive_type_default_value_2() {
+            @NullSafe
+            Double vinay = NON_PRIMITIVE_DATA_PROVIDER.doubleField;
+            Assertions.assertEquals(null, vinay);
+        }
+
+        @Test
+        public void primitive_type_non_default_value() {
+            @NullSafe("1.0")
+            double vinay = getNull(Double.class);
+            Assertions.assertEquals(1.0d, vinay);
+        }
+
+        @Test
+        public void non_primitive_type_non_default_value() {
+            @NullSafe("1.0")
+            Double vinay = getNull(Double.class);
+            Assertions.assertEquals(1.0d, vinay);
+        }
+    }
+
+    @Nested
+    public class FloatTest {
+        @Test
+        public void primitive_type_default_value_int_1() {
+            @NullSafe("")
+            float vinay = getNull(Float.class);
+            Assertions.assertEquals(0, vinay);
+        }
+
+
+        @Test
+        public void primitive_type_default_value_int_2() {
+            @NullSafe
+            float vinay = PRIMITIVE_DATA_PROVIDER.floatField;
+            Assertions.assertEquals(0, vinay);
+        }
+
+        @Test
+        public void non_primitive_type_default_value_1() {
+            @NullSafe("")
+            var vinay = getNull(Float.class);
+            Assertions.assertEquals(null, vinay);
+        }
+
+        @Test
+        public void non_primitive_type_default_value_2() {
+            @NullSafe
+            Float vinay = NON_PRIMITIVE_DATA_PROVIDER.floatField;
+            Assertions.assertEquals(null, vinay);
+        }
+
+        @Test
+        public void primitive_type_non_default_value() {
+            @NullSafe("1.0")
+            float vinay = getNull(Float.class);
+            Assertions.assertEquals(1.0f, vinay);
+        }
+
+        @Test
+        public void non_primitive_type_non_default_value() {
+            @NullSafe("1.0")
+            Float vinay = getNull(Float.class);
+            Assertions.assertEquals(1.0f, vinay);
+        }
+    }
+
 
     @Nested
     public class IntTest {
