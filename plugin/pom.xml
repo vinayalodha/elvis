@@ -13,6 +13,7 @@
     <artifactId>elvis-plugin</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
+    <name>Elvis Plugin</name>
 
     <properties>
         <auto-service.version>1.0</auto-service.version>
@@ -65,6 +66,23 @@
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>empty-javadoc-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>javadoc</classifier>
+                            <classesDirectory>${basedir}/javadoc</classesDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

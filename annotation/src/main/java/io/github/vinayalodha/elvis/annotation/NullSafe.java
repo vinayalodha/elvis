@@ -3,7 +3,7 @@ package io.github.vinayalodha.elvis.annotation;
 import java.lang.annotation.*;
 
 
-/**
+/*
  * Marking this annotation on local variable will prevent {@link NullPointerException}
  * For example, consider below snippet
  *
@@ -28,7 +28,7 @@ import java.lang.annotation.*;
 public @interface NullSafe {
 
 
-    /**
+    /*
      * Default value to use if rhs of expression is evaluated to null.
      * For example, below snippet will print "Hello World"
      *

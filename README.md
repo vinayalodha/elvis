@@ -64,8 +64,8 @@ If you want to assign default value to cardNumber in above example, then code wi
     }
 
 For more examples please
-refer [here](./plugin-test/src/test/io/github/vinayalodha/elvis/plugin/test/positive/AstTransformationTests.java)
-and [here](./plugin-test/src/test/io/github/vinayalodha/elvis/plugin/test/positive)
+refer [here](https://github.com/vinayalodha/elvis/blob/main/plugin-test/src/test/java/io/github/vinayalodha/elvis/plugin/test/positive/AstTransformationTests.java)
+and [here](https://github.com/vinayalodha/elvis/blob/main/plugin-test/src/test/java/io/github/vinayalodha/elvis/plugin/test/positive/)
 .
 
 ## Installation

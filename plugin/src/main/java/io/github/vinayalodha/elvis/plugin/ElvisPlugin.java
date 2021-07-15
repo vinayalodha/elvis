@@ -7,6 +7,8 @@ import com.sun.source.util.TaskEvent;
 import com.sun.source.util.TaskListener;
 
 /**
+ * Plugin class implementation
+ *
  * @author <a href="http://github.com/vinay-lodha">Vinay Lodha</a>
  */
 @AutoService(Plugin.class)
