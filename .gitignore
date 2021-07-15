@@ -24,3 +24,5 @@ hs_err_pid*
 .idea/*
 annotation/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 /elvis-parent.iml
+/pom.xml.versionsBackup
+/annotation/pom.xml.versionsBackup
