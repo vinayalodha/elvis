@@ -63,8 +63,9 @@ If you want to assign default value to cardNumber in above example, then code wi
         return cardNumber;
     }
 
-For more examples please refer [here](./plugin-test/src/test/java/elvis/plugin/positive/AstTransformationTests.java)
-and [here](./plugin-test/src/test/java/elvis/plugin/positive)
+For more examples please
+refer [here](./plugin-test/src/test/io/github/vinayalodha/elvis/plugin/test/positive/AstTransformationTests.java)
+and [here](./plugin-test/src/test/io/github/vinayalodha/elvis/plugin/test/positive)
 .
 
 ## Installation
@@ -77,12 +78,12 @@ You need to add `-Xplugin:ElvisPlugin` in compiler arguments
         <dependency>
             <groupId>io.github.vinayalodha</groupId>
             <artifactId>elvis-annotation</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.vinayalodha</groupId>
             <artifactId>elvis-plugin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
