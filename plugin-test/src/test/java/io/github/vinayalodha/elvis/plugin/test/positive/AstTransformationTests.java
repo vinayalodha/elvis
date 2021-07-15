@@ -17,10 +17,28 @@ public class AstTransformationTests {
     public String hello;
 
     @Test
+    public void lot_of_parenthesis() {
+        String nullString = null;
+        @NullSafe()
+        String vinay = (((nullString).toUpperCase(Locale.ENGLISH)).trim());
+        assertNull(vinay);
+    }
+
+
+    @Test
     public void method_invocation_on_identifier() {
         String nullString = null;
         @NullSafe()
-        String vinay = nullString.toUpperCase(Locale.ENGLISH);
+        String vinay = nullString.toUpperCase(Locale.ENGLISH).trim();
+        assertNull(vinay);
+    }
+
+
+    @Test
+    public void method_invocation_on_identifier_to_array() {
+        String nullString = null;
+        @NullSafe()
+        char[] vinay = nullString.toUpperCase(Locale.ENGLISH).trim().toCharArray();
         assertNull(vinay);
     }
 
@@ -85,5 +103,4 @@ public class AstTransformationTests {
     public static class InnerClass {
         public String notNullField = "";
     }
-
 }

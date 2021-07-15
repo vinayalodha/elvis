@@ -89,4 +89,13 @@ public class TreeUtils {
                 .map(JCTree.JCModifiers::getAnnotations)
                 .orElse(com.sun.tools.javac.util.List.nil());
     }
+
+    public static JCTree.JCExpression removeParenthesis(JCTree.JCExpression expression) {
+        if (expression == null) return null;
+
+        if (TreeTypeUtils.isParenthesis(expression))
+            return removeParenthesis(((JCTree.JCParens) expression).getExpression());
+
+        return expression;
+    }
 }

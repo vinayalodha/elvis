@@ -11,6 +11,7 @@ import io.github.vinayalodha.elvis.plugin.utils.TreeUtils;
 
 import javax.tools.Diagnostic;
 import java.util.Deque;
+import java.util.Optional;
 
 /**
  * @author <a href="http://github.com/vinay-lodha">Vinay Lodha</a>
@@ -22,28 +23,30 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
     }
 
     public void handle(JCTree.JCVariableDecl variableTree) {
-        if (TreeUtils.findNotNullAnnotation(TreeUtils.getAnnotations(variableTree), imports).isEmpty())
+        Optional<JCTree.JCAnnotation> notNullAnnotation = TreeUtils.findNotNullAnnotation(TreeUtils.getAnnotations(variableTree), imports);
+        if (notNullAnnotation.isEmpty())
             return;
-        JCTree.JCExpression initializer = variableTree.getInitializer();
+
+        JCTree.JCExpression initializer = TreeUtils.removeParenthesis(variableTree.getInitializer());
         correctTreeMakerPos(initializer);
 
         JCTree.JCMethodInvocation transformedTree = null;
         if (shouldDoStackProcessing(initializer)) {
-            transformedTree = transform(initializer);
+            transformedTree = transform(initializer, notNullAnnotation.get());
         } else if (TreeTypeUtils.isLiteralTree(initializer)) {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.NULL_SAFE_CODE,
-                    initializer,
+                    notNullAnnotation.get(),
                     compilationUnitTree);
         } else if (TreeTypeUtils.isBinaryTree(variableTree.getInitializer())) {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.BINARY_EXPRESSION,
-                    initializer,
+                    notNullAnnotation.get(),
                     compilationUnitTree);
         } else {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.PARSING_BUG,
-                    initializer,
+                    notNullAnnotation.get(),
                     compilationUnitTree);
         }
         if (transformedTree != null) {
@@ -63,13 +66,13 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
                 || TreeTypeUtils.isIdentifierTree(initializer);
     }
 
-    public JCTree.JCMethodInvocation transform(JCTree.JCExpression ast) {
+    public JCTree.JCMethodInvocation transform(JCTree.JCExpression ast, JCTree.JCAnnotation jcAnnotation) {
 
         Deque<JCTree> expressionStack = SymbolStackUtils.buildSymbolStack(ast);
         if (expressionStack == null) {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.PARSING_BUG,
-                    ast,
+                    jcAnnotation,
                     compilationUnitTree);
             return null;
         }

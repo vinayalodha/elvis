@@ -47,9 +47,9 @@ If you open class file for this code it will look something like below
 
     public String getCardNumberFromOrder(Order order) {
         return Optional.ofNullable(order)
-            .map(Order::getPayment)
-            .map(Payment::getCard)
-            .map(Card::getCardNumber)
+            .map(it -> it.getPayment())
+            .map(it -> it.getCard())
+            .map(it -> it.getCardNumber())
             .orElse(null);
     }
 
@@ -78,18 +78,13 @@ You need to add `-Xplugin:ElvisPlugin` in compiler arguments
         <dependency>
             <groupId>io.github.vinayalodha</groupId>
             <artifactId>elvis-annotation</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>io.github.vinayalodha</groupId>
             <artifactId>elvis-plugin</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <plugin>
@@ -105,11 +100,24 @@ You need to add `-Xplugin:ElvisPlugin` in compiler arguments
         </configuration>
     </plugin>
 
+For JDK 16 you need to set `<fork>true</fork>` and add additional args in <compilerArgs> tag. Please refer
+to [JSR](https://openjdk.java.net/jeps/396)
+
+    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+
 ### IntelliJ Idea
 
 You need to add `-Xplugin:ElvisPlugin` in compiler arguments
 
 ![Intellij Setting](./docs/Intellj%20Idea%20setting.png)
+
+### Eclipse
+
+TODO
 
 ## Current limitations
 
@@ -159,12 +167,12 @@ Here after AST manipulation by this plugin code will become
 
     public String getSomeStuff(SomeClass object) {
         String obj = Optional.ofNullable(object)
-                        .map(it->it.thisMethodWillThrowIoException()) // In Java you cant have checked exception in lambda
+                        .map(it -> it.thisMethodWillThrowIoException()) // In Java you cant have checked exception in lambda
                         .orElse(null);
         return obj;
     }
 
-Given Java Stream wont allow checked exception in lambda, you will get compilation error saying
+Given Java Stream won't allow checked exception in lambda, you will get compilation error saying
 
     java: unreported exception java.io.IOException; must be caught or declared to be thrown
 

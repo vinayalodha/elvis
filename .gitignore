@@ -26,3 +26,6 @@ annotation/target/maven-status/maven-compiler-plugin/compile/default-compile/inp
 /elvis-parent.iml
 /pom.xml.versionsBackup
 /annotation/pom.xml.versionsBackup
+/.project
+/.settings/
+/target/*
