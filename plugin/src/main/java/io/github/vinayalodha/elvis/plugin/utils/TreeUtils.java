@@ -31,7 +31,7 @@ public class TreeUtils {
                 }).findAny();
     }
 
-    public static JCTree parentForMethodInvocation(JCTree.JCMethodInvocation tree) {
+    public static JCTree.JCExpression parentForMethodInvocation(JCTree.JCMethodInvocation tree) {
         if (!TreeTypeUtils.isMethodInvocationTree(tree))
             return null;
 
@@ -54,7 +54,7 @@ public class TreeUtils {
         return null;
     }
 
-    public static JCTree parentForFieldAccess(JCTree.JCFieldAccess tree) {
+    public static JCTree.JCExpression parentForFieldAccess(JCTree.JCFieldAccess tree) {
         return tree.getExpression();
     }
 

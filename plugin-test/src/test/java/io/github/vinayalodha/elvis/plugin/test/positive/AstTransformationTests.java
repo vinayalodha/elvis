@@ -100,6 +100,13 @@ public class AstTransformationTests {
         assertEquals("hello", vinay);
     }
 
+    @Test
+    public void type_cast() {
+        @NullSafe("Vinay")
+        String vinay = ((String) null).trim();
+        System.out.println(vinay);
+    }
+
     public static class InnerClass {
         public String notNullField = "";
     }

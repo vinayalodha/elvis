@@ -13,36 +13,24 @@ public class TreeTypeUtils {
         return isTreeNotNull(tree) && tree.getKind().asInterface().equals(LiteralTree.class);
     }
 
-    private static boolean isTreeNotNull(Tree tree) {
-        return tree != null;
-    }
-
-    public static boolean isArrayAccessTree(Tree tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.ARRAY_ACCESS;
-    }
-
-    public static boolean isIdentifierTree(Tree tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.IDENTIFIER;
-    }
-
-    public static boolean isBinaryTree(Tree tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.PLUS;
+    public static boolean isArrayAccessTree(JCTree tree) {
+        return isKind(tree, Tree.Kind.ARRAY_ACCESS);
     }
 
     public static boolean isFieldAccessTreeOnThis(JCTree tree) {
         if (!isFieldAccessTree(tree))
             return false;
 
-        JCTree.JCFieldAccess fieldAccess = ((JCTree.JCFieldAccess) tree);
+        JCTree.JCFieldAccess fieldAccess = (JCTree.JCFieldAccess) tree;
         JCTree parent = TreeUtils.parentForFieldAccess(fieldAccess);
         if (parent == null)
             return false;
 
-        return parent.toString().equals("this");
+        return "this".equals(parent.toString());
     }
 
-    public static boolean isFieldAccessTree(Tree tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.MEMBER_SELECT;
+    public static boolean isIdentifierTree(JCTree tree) {
+        return isKind(tree, Tree.Kind.IDENTIFIER);
     }
 
     public static boolean isMethodInvocationTreeOnThis(JCTree tree) {
@@ -57,24 +45,40 @@ public class TreeTypeUtils {
         return parent.toString().equals("this");
     }
 
-    public static boolean isMethodInvocationTree(Tree tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.METHOD_INVOCATION;
+    public static boolean isBinaryTree(JCTree tree) {
+        return isKind(tree, Tree.Kind.PLUS);
+    }
+
+    public static boolean isFieldAccessTree(JCTree tree) {
+        return isKind(tree, Tree.Kind.MEMBER_SELECT);
+    }
+
+    public static boolean isMethodInvocationTree(JCTree tree) {
+        return isKind(tree, Tree.Kind.METHOD_INVOCATION);
     }
 
     public static boolean isConstructor(JCTree tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.NEW_CLASS;
+        return isKind(tree, Tree.Kind.NEW_CLASS);
     }
 
-    public static boolean isNullLiteral(JCTree.JCLiteral tree) {
-        return isTreeNotNull(tree) && tree.getKind() == Tree.Kind.NULL_LITERAL;
+    public static boolean isNullLiteral(JCTree tree) {
+        return isKind(tree, Tree.Kind.NULL_LITERAL);
     }
 
-    public static boolean isParenthesis(JCTree treeTemp) {
-        return isTreeNotNull(treeTemp) && treeTemp.getKind() == Tree.Kind.PARENTHESIZED;
+    public static boolean isParenthesis(JCTree tree) {
+        return isKind(tree, Tree.Kind.PARENTHESIZED);
     }
 
-
-    public static boolean isCast(JCTree treeTemp) {
-        return isTreeNotNull(treeTemp) && treeTemp.getKind() == Tree.Kind.TYPE_CAST;
+    public static boolean isCast(JCTree tree) {
+        return isKind(tree, Tree.Kind.TYPE_CAST);
     }
+
+    private static boolean isKind(JCTree jcTree, Tree.Kind kind) {
+        return isTreeNotNull(jcTree) && jcTree.getKind() == kind;
+    }
+
+    private static boolean isTreeNotNull(Tree tree) {
+        return tree != null;
+    }
+
 }

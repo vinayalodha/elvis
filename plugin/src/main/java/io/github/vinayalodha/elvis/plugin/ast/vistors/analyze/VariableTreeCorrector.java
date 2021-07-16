@@ -1,7 +1,6 @@
 package io.github.vinayalodha.elvis.plugin.ast.vistors.analyze;
 
 import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.tree.Tree;
 import com.sun.source.util.JavacTask;
 import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.model.JavacTypes;
@@ -23,6 +22,8 @@ import java.util.Optional;
  * @author <a href="http://github.com/vinay-lodha">Vinay Lodha</a>
  */
 public class VariableTreeCorrector extends AbstractTreeVisitor<JCTree.JCVariableDecl> {
+    private static final String DUMMY_METHOD_PATH = "io.github.vinayalodha.elvis.plugin.utils.ElvisProxy.dummyCall";
+
     private final JavacTypes javacTypes;
 
     public VariableTreeCorrector(JavacTask javacTask, CompilationUnitTree compilationUnitTree) {
@@ -30,9 +31,9 @@ public class VariableTreeCorrector extends AbstractTreeVisitor<JCTree.JCVariable
         this.javacTypes = JavacTypes.instance(context);
     }
 
-    public void handle(JCTree.JCVariableDecl tree) {
+    public void doHandle(JCTree.JCVariableDecl tree) {
         Optional<JCTree.JCAnnotation> notNullAnnotation = TreeUtils.findNotNullAnnotation(TreeUtils.getAnnotations(tree), imports);
-        if (notNullAnnotation.isEmpty() || tree.init.getKind() != Tree.Kind.METHOD_INVOCATION)
+        if (notNullAnnotation.isEmpty() || !TreeTypeUtils.isMethodInvocationTree(tree.init))
             return;
 
         JCTree.JCMethodInvocation initializer = (JCTree.JCMethodInvocation) tree.init;
@@ -41,8 +42,8 @@ public class VariableTreeCorrector extends AbstractTreeVisitor<JCTree.JCVariable
             return;
 
         JCTree.JCExpression firstArgumentOfInitializer = initializer.getArguments().get(0);
-        if (firstArgumentOfInitializer.getKind() == Tree.Kind.METHOD_INVOCATION
-                && "io.github.vinayalodha.elvis.plugin.utils.ElvisProxy.dummyCall".equals(getMethodName(firstArgumentOfInitializer))) {
+        if (TreeTypeUtils.isMethodInvocationTree(firstArgumentOfInitializer)
+                && DUMMY_METHOD_PATH.equals(getMethodName(firstArgumentOfInitializer))) {
 
             JCTree.JCLiteral notNullAnnotationStringLiteralValue = TreeUtils.extractNotNullAnnotationValue(notNullAnnotation.get());
             JCTree.JCMethodInvocation dummyMethod = (JCTree.JCMethodInvocation) firstArgumentOfInitializer;
@@ -75,7 +76,7 @@ public class VariableTreeCorrector extends AbstractTreeVisitor<JCTree.JCVariable
     }
 
     public String getMethodName(JCTree.JCExpression expression) {
-        if (expression.getKind() != Tree.Kind.METHOD_INVOCATION)
+        if (!TreeTypeUtils.isMethodInvocationTree(expression))
             return "";
         return ((JCTree.JCMethodInvocation) expression).meth.toString();
     }

@@ -22,7 +22,7 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
         super(javacTask, compilationUnitTree);
     }
 
-    public void handle(JCTree.JCVariableDecl variableTree) {
+    public void doHandle(JCTree.JCVariableDecl variableTree) {
         Optional<JCTree.JCAnnotation> notNullAnnotation = TreeUtils.findNotNullAnnotation(TreeUtils.getAnnotations(variableTree), imports);
         if (notNullAnnotation.isEmpty())
             return;
@@ -31,7 +31,7 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
         correctTreeMakerPos(initializer);
 
         JCTree.JCMethodInvocation transformedTree = null;
-        if (shouldDoStackProcessing(initializer)) {
+        if (SymbolStackUtils.shouldDoStackProcessing(initializer)) {
             transformedTree = transform(initializer, notNullAnnotation.get());
         } else if (TreeTypeUtils.isLiteralTree(initializer)) {
             trees.printMessage(Diagnostic.Kind.ERROR,
@@ -59,24 +59,16 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
             treeMaker.at(initializer.pos());
     }
 
-    private boolean shouldDoStackProcessing(JCTree.JCExpression initializer) {
-        return TreeTypeUtils.isMethodInvocationTree(initializer)
-                || TreeTypeUtils.isArrayAccessTree(initializer)
-                || TreeTypeUtils.isFieldAccessTree(initializer)
-                || TreeTypeUtils.isIdentifierTree(initializer);
-    }
-
     public JCTree.JCMethodInvocation transform(JCTree.JCExpression ast, JCTree.JCAnnotation jcAnnotation) {
-
-        Deque<JCTree> expressionStack = SymbolStackUtils.buildSymbolStack(ast);
-        if (expressionStack == null) {
+        Deque<JCTree.JCExpression> symbols = SymbolStackUtils.buildSymbols(ast);
+        if (symbols == null || symbols.isEmpty()) {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.PARSING_BUG,
                     jcAnnotation,
                     compilationUnitTree);
             return null;
         }
-        JCTree.JCMethodInvocation jcMethodInvocation = SymbolStackUtils.processSymbolStack(treeMakerExtension, expressionStack);
+        JCTree.JCMethodInvocation jcMethodInvocation = SymbolStackUtils.processSymbols(treeMakerExtension, symbols);
         return treeMakerExtension.buildOrElse(jcMethodInvocation, ast);
     }
 

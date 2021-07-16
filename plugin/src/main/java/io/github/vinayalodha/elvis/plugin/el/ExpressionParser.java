@@ -4,7 +4,9 @@ import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.model.JavacTypes;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
-import io.github.vinayalodha.elvis.plugin.el.converters.*;
+import io.github.vinayalodha.elvis.plugin.el.converters.nonprimitive.CharSequenceConverter;
+import io.github.vinayalodha.elvis.plugin.el.converters.nonprimitive.MissingExpressionConverter;
+import io.github.vinayalodha.elvis.plugin.el.converters.primitive.*;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,9 +1,10 @@
-package io.github.vinayalodha.elvis.plugin.el.converters;
+package io.github.vinayalodha.elvis.plugin.el.converters.primitive;
 
 import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.model.JavacTypes;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
+import io.github.vinayalodha.elvis.plugin.el.converters.AbstractExpressionConverter;
 import io.github.vinayalodha.elvis.plugin.utils.StringUtils;
 
 import javax.lang.model.type.TypeKind;

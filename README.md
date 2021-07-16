@@ -1,7 +1,7 @@
 # Elvis Operator for Java (sort of)
 
-One way of writing null safe code in Java is using `Optional.ofNullable`, Even though I feel it is better alternative to
-writing `if` it gets repetitive and verbose.
+One way of writing null safe code in Java is using `Optional.ofNullable`, Even though I feel it is a better alternative
+to writing `if` it gets repetitive and verbose.
 
 I have written `Optional.ofNullable` countless number of times, and I don't want to write it anymore :)
 
@@ -64,8 +64,8 @@ If you want to assign default value to cardNumber in above example, then code wi
     }
 
 For more examples please
-refer [here](https://github.com/vinayalodha/elvis/blob/main/plugin-test/src/test/java/io/github/vinayalodha/elvis/plugin/test/positive/AstTransformationTests.java)
-and [here](https://github.com/vinayalodha/elvis/blob/main/plugin-test/src/test/java/io/github/vinayalodha/elvis/plugin/test/positive/)
+refer [here](./plugin-test/src/test/java/io/github/vinayalodha/elvis/plugin/test/positive/AstTransformationTests.java)
+and [here](./plugin-test/src/test/java/io/github/vinayalodha/elvis/plugin/test/positive/)
 .
 
 ## Installation
@@ -75,11 +75,6 @@ and [here](https://github.com/vinayalodha/elvis/blob/main/plugin-test/src/test/j
 You need to add `-Xplugin:ElvisPlugin` in compiler arguments
 
     <dependencies>
-        <dependency>
-            <groupId>io.github.vinayalodha</groupId>
-            <artifactId>elvis-annotation</artifactId>
-            <version>1.0.1</version>
-        </dependency>
         <dependency>
             <groupId>io.github.vinayalodha</groupId>
             <artifactId>elvis-plugin</artifactId>
@@ -114,10 +109,6 @@ to [JSR](https://openjdk.java.net/jeps/396)
 You need to add `-Xplugin:ElvisPlugin` in compiler arguments
 
 ![Intellij Setting](./docs/Intellj%20Idea%20setting.png)
-
-### Eclipse
-
-TODO
 
 ## Current limitations
 
@@ -167,7 +158,7 @@ Here after AST manipulation by this plugin code will become
 
     public String getSomeStuff(SomeClass object) {
         String obj = Optional.ofNullable(object)
-                        .map(it -> it.thisMethodWillThrowIoException()) // In Java you cant have checked exception in lambda
+                        .map(it -> it.thisMethodWillThrowIoException()) // In Java you can't have checked exception in lambda
                         .orElse(null);
         return obj;
     }

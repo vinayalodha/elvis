@@ -7,9 +7,11 @@ import com.sun.tools.javac.api.BasicJavacTask;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.Context;
+import io.github.vinayalodha.elvis.plugin.constants.ErrorMessage;
 import io.github.vinayalodha.elvis.plugin.utils.TreeMakerExtension;
 import io.github.vinayalodha.elvis.plugin.utils.TreeUtils;
 
+import javax.tools.Diagnostic;
 import java.util.Set;
 
 
@@ -40,4 +42,18 @@ public abstract class AbstractTreeVisitor<T extends JCTree> implements TreeVisit
 
         this.imports = TreeUtils.getImports((JCTree.JCCompilationUnit) compilationUnitTree);
     }
+
+    @Override
+    public final void handle(T tree) {
+        try {
+            doHandle(tree);
+        } catch (Exception e) {
+            trees.printMessage(Diagnostic.Kind.ERROR,
+                    ErrorMessage.PARSING_BUG,
+                    tree,
+                    compilationUnitTree);
+        }
+    }
+
+    protected abstract void doHandle(T tree);
 }

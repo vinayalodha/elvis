@@ -5,6 +5,8 @@ import com.sun.source.util.JavacTask;
 import com.sun.source.util.Plugin;
 import com.sun.source.util.TaskEvent;
 import com.sun.source.util.TaskListener;
+import io.github.vinayalodha.elvis.plugin.ast.scanners.AnalyzeTreeScanner;
+import io.github.vinayalodha.elvis.plugin.ast.scanners.ParseTreeScanner;
 
 /**
  * Plugin class implementation
@@ -34,6 +36,7 @@ public class ElvisPlugin implements Plugin {
                 } else if (e.getKind() == TaskEvent.Kind.ANALYZE) {
                     e.getCompilationUnit().accept(new AnalyzeTreeScanner(task, e.getCompilationUnit()), null);
                 }
+                TaskListener.super.finished(e);
             }
         });
     }

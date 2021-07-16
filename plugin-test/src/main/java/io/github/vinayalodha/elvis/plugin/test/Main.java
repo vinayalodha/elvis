@@ -1,4 +1,4 @@
-package io.github.vinayalodha.elvis.plugin.test.positive;
+package io.github.vinayalodha.elvis.plugin.test;
 
 /**
  * @author <a href="http://github.com/vinay-lodha">Vinay Lodha</a>

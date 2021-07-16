@@ -84,6 +84,15 @@ public class TreeMakerExtension {
         return buildMapStatement(methodInvocationChain, mapLambda);
     }
 
+    public JCTree.JCMethodInvocation buildMapStatement(JCTree.JCMethodInvocation methodInvocationChain, JCTree.JCTypeCast typeCast) {
+        Name itName = buildName("it");
+        JCTree.JCVariableDecl itVariableDef = treeMaker.Param(itName, null, null);
+        JCTree.JCTypeCast castExpression = treeMaker.TypeCast(typeCast.clazz, treeMaker.Ident(itName));
+        JCTree.JCLambda mapLambda = treeMaker.Lambda(List.of(itVariableDef), castExpression);
+
+        return buildMapStatement(methodInvocationChain, mapLambda);
+    }
+
     public JCTree.JCMethodInvocation buildOptionalStatement(JCTree.JCExpression optionalArgument) {
         Name ofNullableName = buildName("ofNullable");
         JCTree.JCExpression optionalExpression = buildFullyQualifiedClassNameExpression("java.util.Optional");

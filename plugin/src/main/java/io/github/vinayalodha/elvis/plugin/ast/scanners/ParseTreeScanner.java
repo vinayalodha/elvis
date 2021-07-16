@@ -1,4 +1,4 @@
-package io.github.vinayalodha.elvis.plugin;
+package io.github.vinayalodha.elvis.plugin.ast.scanners;
 
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.VariableTree;
