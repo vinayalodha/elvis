@@ -98,11 +98,11 @@ You need to add `-Xplugin:ElvisPlugin` in compiler arguments
 For JDK 16 you need to set `<fork>true</fork>` and add additional args in <compilerArgs> tag. Please refer
 to [JSR](https://openjdk.java.net/jeps/396)
 
-    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
-    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
-    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
-    <arg>--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+    <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+    <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+    <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+    <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED</arg>
+    <arg>-J--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
 
 ### IntelliJ Idea
 
@@ -167,3 +167,7 @@ Given Java Stream won't allow checked exception in lambda, you will get compilat
 
     java: unreported exception java.io.IOException; must be caught or declared to be thrown
 
+### Does not work with eclipse
+
+Eclipse use its own compiler ECJ(Eclipse compiler for Java), and I could not find any way to pass
+in `-Xplugin:ElvisPlugin`
