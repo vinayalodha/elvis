@@ -6,7 +6,9 @@ package io.github.vinayalodha.elvis.plugin.test;
 public class Main {
 
     public static void main(String[] args) {
-
-        int a = "a".trim().length();
+        String a = "a";
+        //@NullSafe("default")
+        String vinay = (a + "b");
+        System.out.println(vinay);
     }
 }

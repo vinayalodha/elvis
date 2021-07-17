@@ -104,7 +104,22 @@ public class AstTransformationTests {
     public void type_cast() {
         @NullSafe("Vinay")
         String vinay = ((String) null).trim();
-        System.out.println(vinay);
+        assertEquals("Vinay", vinay);
+    }
+
+    @Test
+    public void ternary_operator() {
+        @NullSafe("default")
+        String vinay = (false ? "Hello" : null);
+        assertEquals("default", vinay);
+    }
+
+    @Test
+    public void binary_operator_method_invocation() {
+        String a = "a";
+        @NullSafe("default")
+        String vinay = (a + "b").trim();
+        assertEquals("ab", vinay);
     }
 
     public static class InnerClass {

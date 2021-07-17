@@ -20,7 +20,7 @@ public class ParseTreeScanner extends TreeScanner<Void, Void> {
 
     @Override
     public Void visitVariable(VariableTree node, Void unused) {
-        variableTreeVisitor.handle(((JCTree.JCVariableDecl) node));
+        variableTreeVisitor.handle((JCTree.JCVariableDecl) node);
         return super.visitVariable(node, unused);
     }
 }

@@ -41,3 +41,4 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 .idea
+/pom.xml.versionsBackup

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.vinayalodha</groupId>
     <artifactId>elvis-parent</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.4-SNAPSHOT</version>
     <name>Parent POM for Elvis</name>
     <packaging>pom</packaging>
     <description>Elvis Java compiler plugin</description>
@@ -13,7 +13,7 @@
     <developers>
         <developer>
             <name>Vinay Lodha</name>
-            <email>https://github.com/vinay-lodha</email>
+            <email>https://github.com/vinayalodha</email>
         </developer>
     </developers>
     <licenses>

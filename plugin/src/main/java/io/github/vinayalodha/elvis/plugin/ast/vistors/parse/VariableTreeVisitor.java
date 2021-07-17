@@ -38,7 +38,7 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
                     ErrorMessage.NULL_SAFE_CODE,
                     notNullAnnotation.get(),
                     compilationUnitTree);
-        } else if (TreeTypeUtils.isBinaryTree(variableTree.getInitializer())) {
+        } else if (TreeTypeUtils.isBinaryTree(initializer)) {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.BINARY_EXPRESSION,
                     notNullAnnotation.get(),
@@ -59,8 +59,8 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
             treeMaker.at(initializer.pos());
     }
 
-    public JCTree.JCMethodInvocation transform(JCTree.JCExpression ast, JCTree.JCAnnotation jcAnnotation) {
-        Deque<JCTree.JCExpression> symbols = SymbolStackUtils.buildSymbols(ast);
+    public JCTree.JCMethodInvocation transform(JCTree.JCExpression astToTransform, JCTree.JCAnnotation jcAnnotation) {
+        Deque<JCTree.JCExpression> symbols = SymbolStackUtils.buildSymbols(astToTransform);
         if (symbols == null || symbols.isEmpty()) {
             trees.printMessage(Diagnostic.Kind.ERROR,
                     ErrorMessage.PARSING_BUG,
@@ -69,7 +69,7 @@ public class VariableTreeVisitor extends AbstractTreeVisitor<JCTree.JCVariableDe
             return null;
         }
         JCTree.JCMethodInvocation jcMethodInvocation = SymbolStackUtils.processSymbols(treeMakerExtension, symbols);
-        return treeMakerExtension.buildOrElse(jcMethodInvocation, ast);
+        return treeMakerExtension.buildOrElse(jcMethodInvocation, astToTransform);
     }
 
 }

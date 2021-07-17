@@ -27,7 +27,9 @@ public final class SymbolStackUtils {
             } else if (TreeTypeUtils.isConstructor(expression)
                     || TreeTypeUtils.isLiteralTree(expression)
                     || TreeTypeUtils.isFieldAccessTreeOnThis(expression)
-                    || TreeTypeUtils.isMethodInvocationTreeOnThis(expression)) {
+                    || TreeTypeUtils.isMethodInvocationTreeOnThis(expression)
+                    || TreeTypeUtils.isTernaryOperator(expression)
+                    || TreeTypeUtils.isBinaryTree(expression)) {
                 symbols.push(expression);
                 break;
             } else if (TreeTypeUtils.isArrayAccessTree(expression)) {
@@ -78,6 +80,7 @@ public final class SymbolStackUtils {
         return TreeTypeUtils.isMethodInvocationTree(initializer)
                 || TreeTypeUtils.isArrayAccessTree(initializer)
                 || TreeTypeUtils.isFieldAccessTree(initializer)
-                || TreeTypeUtils.isIdentifierTree(initializer);
+                || TreeTypeUtils.isIdentifierTree(initializer)
+                || TreeTypeUtils.isTernaryOperator(initializer);
     }
 }

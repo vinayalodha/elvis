@@ -20,7 +20,7 @@ public class AnalyzeTreeScanner extends TreeScanner<Void, Void> {
 
     @Override
     public Void visitVariable(VariableTree node, Void unused) {
-        variableTreeCorrector.handle(((JCTree.JCVariableDecl) node));
+        variableTreeCorrector.handle((JCTree.JCVariableDecl) node);
         return super.visitVariable(node, unused);
     }
 }

@@ -78,7 +78,7 @@ You need to add `-Xplugin:ElvisPlugin` in compiler arguments
         <dependency>
             <groupId>io.github.vinayalodha</groupId>
             <artifactId>elvis-plugin</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

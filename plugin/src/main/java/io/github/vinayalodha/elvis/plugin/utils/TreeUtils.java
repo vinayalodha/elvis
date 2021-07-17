@@ -91,7 +91,8 @@ public class TreeUtils {
     }
 
     public static JCTree.JCExpression removeParenthesis(JCTree.JCExpression expression) {
-        if (expression == null) return null;
+        if (expression == null)
+            return null;
 
         if (TreeTypeUtils.isParenthesis(expression))
             return removeParenthesis(((JCTree.JCParens) expression).getExpression());

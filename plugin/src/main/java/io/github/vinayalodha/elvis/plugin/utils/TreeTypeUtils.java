@@ -45,9 +45,11 @@ public class TreeTypeUtils {
         return parent.toString().equals("this");
     }
 
+    // 1+2+3
     public static boolean isBinaryTree(JCTree tree) {
         return isKind(tree, Tree.Kind.PLUS);
     }
+
 
     public static boolean isFieldAccessTree(JCTree tree) {
         return isKind(tree, Tree.Kind.MEMBER_SELECT);
@@ -81,4 +83,7 @@ public class TreeTypeUtils {
         return tree != null;
     }
 
+    public static boolean isTernaryOperator(JCTree.JCExpression expression) {
+        return isKind(expression, Tree.Kind.CONDITIONAL_EXPRESSION);
+    }
 }
