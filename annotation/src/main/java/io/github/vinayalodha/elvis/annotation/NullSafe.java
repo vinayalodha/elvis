@@ -27,6 +27,8 @@ import java.lang.annotation.*;
  * 2. If you have checked exception in expression you will get compilation error
  * 3. Annotation can only applied to local variable due to @Target({ElementType.LOCAL_VARIABLE}) policy
  * 4. Eclipse IDE wont work with this plugin as Eclipse have its own compiler for doing stuff.
+ *
+ * More details at <a href="https://github.com/vinayalodha/elvis">github docs</a>
  * </pre>
  *
  * @author <a href="http://github.com/vinay-lodha">Vinay Lodha</a>
