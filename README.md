@@ -1,4 +1,4 @@
-# Elvis Operator for Java (sort of)
+# Elvis Operator for Java
 
 One way of writing null safe code in Java is using `Optional.ofNullable`, Even though I feel it is a better alternative
 to writing `if` it gets repetitive and verbose.
