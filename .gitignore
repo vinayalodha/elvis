@@ -29,3 +29,4 @@ annotation/target/maven-status/maven-compiler-plugin/compile/default-compile/inp
 /.project
 /.settings/
 /target/*
+.DS_Store
