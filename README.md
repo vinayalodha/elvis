@@ -170,4 +170,4 @@ Given Java Stream won't allow checked exception in lambda, you will get compilat
 ### Does not work with eclipse
 
 Eclipse use its own compiler ECJ(Eclipse compiler for Java), and I could not find any way to pass
-in `-Xplugin:ElvisPlugin`
+in `-Xplugin:ElvisPlugin`. I am still trying to find way where I can patch this.
