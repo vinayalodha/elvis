@@ -15,7 +15,7 @@
     <name>Elvis Plugin</name>
 
     <properties>
-        <auto-service.version>1.0</auto-service.version>
+        <auto-service.version>1.0.1</auto-service.version>
     </properties>
 
     <dependencies>
