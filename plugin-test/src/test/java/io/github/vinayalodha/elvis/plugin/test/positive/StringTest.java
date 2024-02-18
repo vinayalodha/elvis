@@ -13,6 +13,7 @@ public class StringTest {
         @NullSafe
         var vinay = getNull().trim();
         Assertions.assertEquals(null, vinay);
+        Assertions.assertEquals(null, vinay);
     }
 
     public String getNull() {
