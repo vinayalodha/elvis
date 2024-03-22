@@ -24,6 +24,7 @@ public class StringTest {
         @NullSafe("hello")
         var vinay = getNull().trim();
         Assertions.assertEquals("hello", vinay);
+        Assertions.assertEquals(null, vinay);
     }
 
     @Test
