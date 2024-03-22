@@ -26,6 +26,7 @@ public class StringTest {
         Assertions.assertEquals("hello", vinay);
         Assertions.assertEquals(null, vinay);
         Assertions.assertEquals(null, vinay);
+        Assertions.assertEquals(null, vinay);
     }
 
     @Test
