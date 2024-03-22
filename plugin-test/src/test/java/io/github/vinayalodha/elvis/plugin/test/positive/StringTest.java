@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 public class StringTest {
     @Test
     public void test_default_value() {
+        var vishal = getNull().trim();
+
         @NullSafe
         var vinay = getNull().trim();
         Assertions.assertEquals(null, vinay);
